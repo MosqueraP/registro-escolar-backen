@@ -1,7 +1,9 @@
 package com.registroescolar.backend.configuration;
 
+import com.registroescolar.backend.dto.AdministrativeDTO;
 import com.registroescolar.backend.dto.ProfessorDTO;
 import com.registroescolar.backend.dto.StudentDTO;
+import com.registroescolar.backend.model.Administrative;
 import com.registroescolar.backend.model.Professor;
 import com.registroescolar.backend.model.Student;
 import org.modelmapper.ModelMapper;
@@ -23,6 +25,10 @@ public class AppConfig {
         // Ignora el ID al mapear de ProfessorDTO a Professor
         modelMapper.typeMap(ProfessorDTO.class, Professor.class)
                 .addMappings(mapper -> mapper.skip(Professor::setId));
+
+         // Evita sobrescribir el ID al mapear de AdministrativeDTO a entidad Administrative
+        modelMapper.typeMap(AdministrativeDTO.class, Administrative.class)
+           .addMappings(mapper -> mapper.skip(Administrative::setId));
 
         return modelMapper;
     }
