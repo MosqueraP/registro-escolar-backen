@@ -5,19 +5,19 @@ WORKDIR /app
 
 COPY . .
 
-# Compila el proyecto (sin correr tests)
+# Dar permisos al wrapper
+RUN chmod +x ./mvnw
+
+# Compilar el proyecto
 RUN ./mvnw clean package -DskipTests
 
-# Etapa 2: Imagen final para correr
+# Etapa 2: Imagen final
 FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
-# Copia solo el .jar generado
 COPY --from=builder /app/target/*.jar app.jar
 
 ENV SPRING_PROFILES_ACTIVE=prod
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
-
-
