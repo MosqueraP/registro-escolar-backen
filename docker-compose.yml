@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: registroescolar
+      POSTGRES_PASSWORD: 1PbLmTCfd0
+      POSTGRES_DB: registroescolar
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  app:
+    image: backend-escolar
+    build: .
+    depends_on:
+      - db
+    env_file: .env.prod
+    ports:
+      - "8080:8080"
+
+volumes:
+  db-data:
