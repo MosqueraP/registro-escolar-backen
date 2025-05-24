@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EstudianteAsignacionDTO{
-    private Long idPersona;
+    private Long id;
     private String numeroMatricula;
     private String grado;
 }

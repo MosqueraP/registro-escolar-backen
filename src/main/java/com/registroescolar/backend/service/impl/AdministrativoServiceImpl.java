@@ -38,7 +38,7 @@ public class AdministrativoServiceImpl implements AdministrativoService {
         Administrativo administrativo = administrativoRepository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Administrativo con ID " + id + " no encontrado"));
 
-        dto.setIdPersona(administrativo.getIdPersona()); // No permitir cambiar ID
+        dto.setId(administrativo.getId()); // No permitir cambiar ID
         modelMapper.map(dto, administrativo);
         administrativo = administrativoRepository.save(administrativo);
         return modelMapper.map(administrativo, AdministrativoDTO.class);

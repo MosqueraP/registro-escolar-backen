@@ -1,5 +1,6 @@
 package com.registroescolar.backend.controller;
 
+import com.registroescolar.backend.dto.CursoAsignacionDTO;
 import com.registroescolar.backend.dto.CursoDTO;
 import com.registroescolar.backend.exception.RecursoNoEncontradoException;
 import com.registroescolar.backend.service.interfaces.CursoService;
@@ -110,6 +111,11 @@ public class CursoController {
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al buscar cursos.");
         }
+    }
+
+    @GetMapping("/asignacion")
+    public ResponseEntity<List<CursoAsignacionDTO>> listarConProfesor() {
+        return ResponseEntity.ok(cursoService.listarConProfesor());
     }
 
 

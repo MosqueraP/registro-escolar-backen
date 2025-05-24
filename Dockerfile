@@ -3,21 +3,23 @@ FROM eclipse-temurin:17-jdk AS builder
 
 WORKDIR /app
 
+# Copiar el código fuente y permisos al wrapper
 COPY . .
-
-# Dar permisos al wrapper
 RUN chmod +x ./mvnw
 
-# Compilar el proyecto
+# Compilar el proyecto sin ejecutar pruebas
 RUN ./mvnw clean package -DskipTests
 
-# Etapa 2: Imagen final
+# Etapa 2: Imagen final para producción
 FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
+# Copiar el JAR desde el builder
 COPY --from=builder /app/target/*.jar app.jar
 
-ENV SPRING_PROFILES_ACTIVE=prod
+# Render provee estas variables desde el entorno
+# (No es necesario declararlas aquí si Render las inyecta)
+# ENV SPRING_PROFILES_ACTIVE=prod
 
 ENTRYPOINT ["java", "-jar", "app.jar"]

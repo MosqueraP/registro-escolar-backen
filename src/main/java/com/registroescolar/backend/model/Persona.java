@@ -18,10 +18,9 @@ import java.time.LocalDate;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Persona {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPersona;
+    private Long id;
 
     @NotBlank
     private String nombre;

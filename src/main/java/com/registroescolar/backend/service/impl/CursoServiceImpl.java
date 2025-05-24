@@ -1,5 +1,6 @@
 package com.registroescolar.backend.service.impl;
 
+import com.registroescolar.backend.dto.CursoAsignacionDTO;
 import com.registroescolar.backend.dto.CursoDTO;
 import com.registroescolar.backend.exception.RecursoNoEncontradoException;
 import com.registroescolar.backend.model.Curso;
@@ -89,6 +90,23 @@ public class CursoServiceImpl implements CursoService {
     public Page<CursoDTO> buscarPorNombre(String nombre, Pageable pageable) {
         return cursoRepository.findByNombreContainingIgnoreCase(nombre, pageable)
                 .map(curso -> modelMapper.map(curso, CursoDTO.class));
+    }
+
+    @Override
+    public List<CursoAsignacionDTO> listarConProfesor() {
+        return cursoRepository.findAll().stream()
+                .map(c -> {
+                    CursoAsignacionDTO dto = new CursoAsignacionDTO();
+                    dto.setIdCurso(c.getIdCurso());
+                    dto.setNombre(c.getNombre());
+                    dto.setDescripcion(c.getDescripcion());
+                    dto.setCreditos(c.getCreditos());
+                    dto.setIdProfesor(c.getProfesor().getId());
+                    dto.setNombreProfesor(c.getProfesor().getNombre());
+                    dto.setApellidoProfesor(c.getProfesor().getApellido());
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
 

@@ -14,7 +14,7 @@ public interface EstudianteService {
 
     EstudianteDTO actualizar(Long id, EstudianteDTO dto);
 
-    List<EstudianteAsignacionDTO> listar();
+    List<EstudianteDTO > listar();
 
     EstudianteAsignacionDTO obtenerPorId(Long id);
 

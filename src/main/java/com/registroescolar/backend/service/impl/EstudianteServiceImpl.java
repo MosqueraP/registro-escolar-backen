@@ -50,7 +50,16 @@ public class EstudianteServiceImpl implements EstudianteService {
             throw new OperacionInvalidaException("Número de matrícula ya existe.");
         }
 
-        Estudiante estudiante = modelMapper.map(dto, Estudiante.class);
+//        Estudiante estudiante = modelMapper.map(dto, Estudiante.class);
+        Estudiante estudiante = new Estudiante();
+        estudiante.setNombre(dto.getNombre());
+        estudiante.setApellido(dto.getApellido());
+        estudiante.setFechaNacimiento(dto.getFechaNacimiento());
+        estudiante.setEmail(dto.getEmail());
+        estudiante.setTelefono(dto.getTelefono());
+        estudiante.setNumeroMatricula(dto.getNumeroMatricula());
+        estudiante.setGrado(dto.getGrado());
+
         estudiante = estudianteRepository.save(estudiante);
         return modelMapper.map(estudiante, EstudianteDTO.class);
     }
@@ -58,10 +67,10 @@ public class EstudianteServiceImpl implements EstudianteService {
 
 
     @Override
-    public List<EstudianteAsignacionDTO> listar() {
+    public List<EstudianteDTO> listar() {
         return estudianteRepository.findAll()
                 .stream()
-                .map(e -> modelMapper.map(e, EstudianteAsignacionDTO.class))
+                .map(est -> modelMapper.map(est, EstudianteDTO.class))
                 .collect(Collectors.toList());
     }
 
@@ -89,7 +98,6 @@ public class EstudianteServiceImpl implements EstudianteService {
         Estudiante estudiante = estudianteRepository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Estudiante con ID " + id + " no encontrado."));
 
-        dto.setNumeroMatricula(estudiante.getNumeroMatricula());
         estudiante.setNombre(dto.getNombre());
         estudiante.setApellido(dto.getApellido());
         estudiante.setFechaNacimiento(dto.getFechaNacimiento());
@@ -97,8 +105,8 @@ public class EstudianteServiceImpl implements EstudianteService {
         estudiante.setTelefono(dto.getTelefono());
         estudiante.setGrado(dto.getGrado());
 
-        estudiante = estudianteRepository.save(estudiante);
-        return modelMapper.map(estudiante, EstudianteDTO.class);
+        Estudiante actualizado = estudianteRepository.save(estudiante);
+        return modelMapper.map(actualizado, EstudianteDTO.class);
     }
 
     // paginación

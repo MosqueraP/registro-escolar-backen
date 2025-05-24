@@ -14,19 +14,19 @@ VALUES ('Laura', 'Martínez', '2005-06-12', 'laura.martinez@correo.com', '300333
 
 -- Profesores (referencia a persona)
 
-INSERT INTO profesor (id_persona, especialidad, fecha_contratacion)
+INSERT INTO profesor (id, especialidad, fecha_contratacion)
 VALUES (1, 'Historia', '2020-01-01');
 
-INSERT INTO profesor (id_persona, especialidad, fecha_contratacion)
+INSERT INTO profesor (id, especialidad, fecha_contratacion)
 VALUES (2, 'Matemáticas', '2021-02-01');
 
 
 -- Estudiantes (referencia a persona)
 
-INSERT INTO estudiante (id_persona, numero_matricula, grado)
+INSERT INTO estudiante (id, numero_matricula, grado)
 VALUES (3, 'EST-2025-001', '10A');
 
-INSERT INTO estudiante (id_persona, numero_matricula, grado)
+INSERT INTO estudiante (id, numero_matricula, grado)
 VALUES (4, 'EST-2025-002', '10B');
 
 -- Cursos (relacionados con profesores)
@@ -39,13 +39,13 @@ VALUES ('Álgebra Lineal', 'Curso introductorio al álgebra lineal.', 4, 2);
 
 
 -- Administrativos
-INSERT INTO administrativo (id_persona, cargo, departamento) VALUES
+INSERT INTO administrativo (id, cargo, departamento) VALUES
  (1, 'Admisiones Académico', 'Admisiones');
 
-INSERT INTO administrativo (id_persona, cargo, departamento) VALUES
+INSERT INTO administrativo (id, cargo, departamento) VALUES
  (3, 'Instructor Académico', 'Instructor');
 
-INSERT INTO administrativo (id_persona, cargo, departamento) VALUES
+INSERT INTO administrativo (id, cargo, departamento) VALUES
   (2, 'Secretario Académico', 'Secretario');
 
 

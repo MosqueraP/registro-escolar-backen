@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "estudiante")
-@PrimaryKeyJoinColumn(name = "id_persona")
+@PrimaryKeyJoinColumn(name = "id")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 public class Estudiante extends Persona {

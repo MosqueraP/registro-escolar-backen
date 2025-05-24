@@ -1,6 +1,7 @@
 package com.registroescolar.backend.controller;
 
 import com.registroescolar.backend.dto.InscripcionDTO;
+import com.registroescolar.backend.dto.InscripcionDetalleDTO;
 import com.registroescolar.backend.service.interfaces.InscripcionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -93,5 +94,17 @@ public class InscripcionController {
         } catch (Exception ex) {
             return ResponseEntity.status(500).body("Error al listar inscripciones paginadas.");
         }
+    }
+
+
+    @GetMapping("/detalles")
+    @Operation(summary = "Ver inscripción detallada", description = "Ver nombre Curso + Nombre Curso.")
+    public ResponseEntity<List<InscripcionDetalleDTO>> listarConNombres() {
+        return ResponseEntity.ok(inscripcionService.listarConNombres());
+    }
+
+    @GetMapping("/con-nombres/paginado")
+    public ResponseEntity<Page<InscripcionDetalleDTO>> listarConNombresPaginado(Pageable pageable) {
+        return ResponseEntity.ok(inscripcionService.listarConNombresPaginado(pageable));
     }
 }

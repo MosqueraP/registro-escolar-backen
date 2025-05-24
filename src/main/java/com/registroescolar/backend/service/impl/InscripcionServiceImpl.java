@@ -1,6 +1,7 @@
 package com.registroescolar.backend.service.impl;
 
 import com.registroescolar.backend.dto.InscripcionDTO;
+import com.registroescolar.backend.dto.InscripcionDetalleDTO;
 import com.registroescolar.backend.exception.BadRequestException;
 import com.registroescolar.backend.exception.NotFoundException;
 import com.registroescolar.backend.model.Curso;
@@ -101,6 +102,30 @@ public class InscripcionServiceImpl implements InscripcionService {
     public Page<InscripcionDTO> listarPaginado(Pageable pageable) {
         return inscripcionRepository.findAll(pageable)
                 .map(insc -> modelMapper.map(insc, InscripcionDTO.class));
+    }
+
+    @Override
+    public List<InscripcionDetalleDTO> listarConNombres() {
+        return inscripcionRepository.findAll()
+                .stream()
+                .map(i -> new InscripcionDetalleDTO(
+                        i.getIdInscripcion(),
+                        i.getEstudiante().getNombre() + " " + i.getEstudiante().getApellido(),
+                        i.getCurso().getNombre(),
+                        i.getFechaInscripcion()
+                ))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<InscripcionDetalleDTO> listarConNombresPaginado(Pageable pageable) {
+        return inscripcionRepository.findAll(pageable)
+                .map(i -> new InscripcionDetalleDTO(
+                        i.getIdInscripcion(),
+                        i.getEstudiante().getNombre() + " " + i.getEstudiante().getApellido(),
+                        i.getCurso().getNombre(),
+                        i.getFechaInscripcion()
+                ));
     }
 
 }

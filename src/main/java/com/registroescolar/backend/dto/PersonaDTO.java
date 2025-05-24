@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class PersonaDTO {
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
-    private Long idPersona;
+    private Long id;
     private String nombre;
     private String apellido;
     private LocalDate fechaNacimiento;

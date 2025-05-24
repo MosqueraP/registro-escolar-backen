@@ -43,7 +43,7 @@ public class ProfesorServiceImpl implements ProfesorService {
         Profesor profesor = profesorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Profesor no encontrado"));
 
-        dto.setIdPersona(profesor.getIdPersona()); // evitar cambiar el ID
+        dto.setId(profesor.getId()); // evitar cambiar el ID
         modelMapper.map(dto, profesor);
         profesor = profesorRepository.save(profesor);
         return modelMapper.map(profesor, ProfesorDTO.class);

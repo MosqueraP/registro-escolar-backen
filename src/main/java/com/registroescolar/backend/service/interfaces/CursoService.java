@@ -1,5 +1,6 @@
 package com.registroescolar.backend.service.interfaces;
 
+import com.registroescolar.backend.dto.CursoAsignacionDTO;
 import com.registroescolar.backend.dto.CursoDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,5 +18,5 @@ public interface CursoService {
 
     Page<CursoDTO> buscarPorNombre(String nombre, Pageable pageable);
 
-
+    List<CursoAsignacionDTO> listarConProfesor();
 }
