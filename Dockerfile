@@ -8,7 +8,7 @@ COPY . .
 RUN chmod +x ./mvnw
 
 # Compilar el proyecto sin ejecutar pruebas
-RUN ./mvnw clean package -DskipTests
+RUN ./mvnw clean package -Dmaven.test.skip=true
 
 # Etapa 2: Imagen final para producción
 FROM eclipse-temurin:17-jdk
