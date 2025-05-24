@@ -1,7 +1,6 @@
 services:
   - type: web
     name: backend-escolar
-    env: docker
     plan: free
     dockerfilePath: ./Dockerfile
     autoDeploy: true
@@ -9,8 +8,8 @@ services:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
       - key: SPRING_DATASOURCE_URL
-        value: ${SPRING_DATASOURCE_URL}
+        value: jdbc:postgresql://dpg-d0m5q3juibsr7385lmsg-a.oregon-postgres.render.com:5432/registroscolar_db?sslmode=require
       - key: SPRING_DATASOURCE_USERNAME
-        value: ${SPRING_DATASOURCE_USERNAME}
+        value: registroscolar_db_user
       - key: SPRING_DATASOURCE_PASSWORD
-        value: ${SPRING_DATASOURCE_PASSWORD}
+        value: 1PbLmTCfd0A0niLugDTH0vtquop1Bwri
