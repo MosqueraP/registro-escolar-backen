@@ -1,25 +1,17 @@
-version: '3.8'
-
 services:
   db:
-    image: postgres:15
+    image: postgres
     environment:
-      POSTGRES_USER: registroescolar
-      POSTGRES_PASSWORD: 1PbLmTCfd0
       POSTGRES_DB: registroescolar
-    ports:
-      - "5432:5432"
-    volumes:
-      - db-data:/var/lib/postgresql/data
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
 
-  app:
-    image: backend-escolar
+  backend:
     build: .
-    depends_on:
-      - db
-    env_file: .env.prod
     ports:
       - "8080:8080"
-
-volumes:
-  db-data:
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/registroescolar
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456

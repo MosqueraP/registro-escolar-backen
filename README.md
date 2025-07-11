@@ -10,74 +10,115 @@ Este proyecto es un backend RESTful construido con **Spring Boot**, siguiendo un
 - Spring Boot 3+
 - Spring Data JPA
 - H2 Database (modo archivo)
+- PostgreSQL
 - Maven
 - ModelMapper
 - Swagger / OpenAPI
-- Docker
+- Docker + Docker Compose
 
 ---
 
 ## Estructura del Proyecto
 
-```bash
-├── src/
-│   ├── main/java/com/registroescolar/backend/
-│   │   ├── controller/          # Controladores REST
-│   │   ├── dto/                 # DTOs de transferencia
-│   │   ├── exception/           # Excepciones personalizadas
-│   │   ├── model/               # Entidades JPA
-│   │   ├── repository/          # Repositorios JPA
-│   │   └── service/             # Lógica de negocio
-├── data.sql                     # Datos iniciales
-├── application.properties       # Configuración Spring
-├── Dockerfile                   # Imagen Docker
-├── pom.xml                      # Dependencias Maven
+## Modelo de Datos (Esquema)
 
-```
+![img.png](img.png)
 
-## Construcción y Ejecución con Docker
-### Compilar el proyecto:  
-```
-./mvnw clean package
-```
+## Requisitos
 
+- Java 17 o superior
+- Maven
+- Docker (opcional, para correr con contenedores)
+- PostgreSQL (si se desea usar la BD local en lugar de Docker o H2)
 
-### 2. Crear la imagen Docker
+---
 
-docker build -t registro-escolar-backend .
+## Perfiles disponibles
 
-### 3. Ejecutar el contenedor
+Este proyecto usa perfiles de Spring Boot para cambiar entre entornos:
 
-## Endpoints disponibles
-Swagger disponible en:
-```
-http://localhost:8080/swagger-ui.html
-```
+- `dev`: usa **H2** (base de datos en archivo local)
+- `prod`: usa **PostgreSQL** (local o Docker)
 
-H2 Console (modo desarrollo):
-```
+---
+
+## OPCIÓN 1: Ejecutar con H2 (perfil `dev`)
+
+Para un desarrollo rápido sin instalar PostgreSQL.
+
+### Configuración
+
+1. Asegúrarse de **NO tener** activada las variables de entorno en IntelliJ.
+2. Activa el perfil `dev` en configuración de ejecución (Run Configuration):
+    - **VM options**:
+      ```
+      -Dspring.profiles.active=dev
+      ```
+
+### Ejecutar
+
+Simplemente haz clic en **Run** en IntelliJ o:
+
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
+
+### Ver la base de datos H2
+Abre en el navegador:
 http://localhost:8080/h2-console
 
-```
-⚠️ Usuario: sa – Password: (vacío)
-JDBC URL: jdbc:h2:file:./data/registroescolar
+- JDBC URL: jdbc:h2:file:./data/registroescolar
+- User: sa
+- Password: (vacío)
 
-### Pruebas
-Se incluyen pruebas unitarias con JUnit para servicios principales. Ejecutar con:
+### Ver los Endpoints
+  http://localhost:8080
 
-```
-./mvnw test
+  http://localhost:8080/swagger-ui/index.html
 
-```
 
-### Requisitos Técnicos cumplidos
-- Java 11+
-- Spring Boot 2.7+
-- CRUD completo por entidad
-- Validaciones
-- Manejo de excepciones con respuestas JSON
-- Logs
-- Dockerizado
-- Documentado con Swagger
-- Persistencia en archivo H2
-- Filtros
+# OPCIÓN 2: Ejecutar con PostgreSQL local (perfil prod)
+Para entorno similar a producción.
+
+### Configuración
+Instala PostgreSQL localmente y crea la BD registroescolar: 
+
+- SPRING_PROFILES_ACTIVE=prod
+- SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/registroescolar
+- SPRING_DATASOURCE_USERNAME=postgres
+- SPRING_DATASOURCE_PASSWORD=123456
+
+NOTA: Asegúrate que los valores coincidan con tu configuración real de PostgreSQL
+
+./mvnw spring-boot:run -Dspring-boot.run.profiles=prod
+
+### Ver los Endpoints
+http://localhost:8080
+
+http://localhost:8080/swagger-ui/index.html
+
+
+# OPCIÓN 3: Ejecutar con Docker + PostgreSQL
+Usa contenedores para que depender del sistema.
+
+### Requisitos
+Tener Docker y Docker Compose instalados.
+
+Ya configurado el archivo docker-compose.yml y Dockerfile.
+
+### Ejecutar todo con Docker
+
+docker compose up --build
+
+- El anterior comando nos permite construir el backend Java. 
+- Crea y ejecuta un contenedor PostgreSQL con datos persistentes.
+- Usa automáticamente el perfil prod.
+
+### Ver los enpoind
+
+En el navegaro visitar
+
+http://localhost:8080
+
+http://localhost:8080/swagger-ui/index.html
+
+
+```bash
