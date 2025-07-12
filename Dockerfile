@@ -22,4 +22,5 @@ COPY --from=builder /app/target/*.jar app.jar
 # (No es necesario declararlas aquí si Render las inyecta)
 # ENV SPRING_PROFILES_ACTIVE=prod
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+#ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "app.jar"]

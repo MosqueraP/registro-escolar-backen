@@ -20,7 +20,9 @@ public class AppConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
                         .allowedOrigins("https://registro-escolar-fronted.onrender.com",
-                                "http://localhost:4200")
+                                "http://localhost:4200",
+                                "https://escolar-a33ba.web.app",
+                                "https://miapp-1002497481751.us-central1.run.app")
                         .allowedMethods("*")
                         .allowedHeaders("*")
                         .allowCredentials(true);
